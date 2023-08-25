@@ -1,0 +1,123 @@
+﻿@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.ViewModel.CalisanVM
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Çalışan Ekleme Formu</title>
+        <link href = "/lib/bootstrap/dist/css/bootstrap.min.css" />
+    </head>
+        
+
+
+    <body>
+       <form method = "post" id = "createCalisan">
+           <div class="form-group">
+            <input name="CalisanAd"type="text" placeholder="Çalışan adını giriniz.."  />
+            <input name = "CalisanSoyad"type="text" placeholder="Çalışan soyadını giriniz.."  />
+            <input name ="CalisanTcNo"type="text" placeholder="Çalışan TC Numarasını giriniz.."/>
+            <input name = "CalisanYas"type="text" placeholder="Çalışan yaşını giriniz..." />
+            
+           </div>
+           <div class="role-select">
+               <select name="CalisanRole" class="CalisanRole" value="">
+                   
+               </select>
+           </div>
+           <div class="departman-select">
+               <select name="DepartmanId" id = "calisanDepartman" asp-items = "@ViewBag.Departmanlar">
+                   
+               </select>
+           </div>
+          <div class="form-select">
+            <select name="CalisanTip"class="CalisanTip" value="">
+                <option selected>Çalışan Tipini Seçiniz</option>
+                <option value="Standart">
+                    Standart Çalışan
+                </option>
+                <option value="SubeMuduru">
+                    Şube Müdürü
+                </option>
+                <option value="DaireBaskani">
+                    Daire Başkanı
+                </option>
+            </select>
+          </div>
+          
+          
+          
+           <div id = "calisanTipContent">
+
+           </div>
+
+        
+       </form>
+    <button id="calisanKaydet">Kaydet</button>
+      <script src= "~/lib/jquery/dist/jquery.js"></script>
+      <script src = "~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script>
+          $(function(){
+              var calisanTip;
+              $("select.CalisanTip").on("change",function(){
+                  calisanTip =  $(this).val();
+                  $.ajax({
+                      url : "/Calisan/GetPartial" + calisanTip,
+                      method : "GET",
+                      success : function(data){
+                         console.log(data);
+                         $("#calisanTipContent").html(data);
+                      },
+                      error : function(err){
+                          console.log(err)
+                      }
+                  })
+              })
+             $("select#calisanDepartman").on("change",function(){
+                 var departmanID = $(this).val()
+                 $.ajax({
+                    url: "@Url.Action("GetRolesByDepartman","Roles")",
+                     method : "GET",
+                     data : {departmanId : departmanID},
+                     success : function(data){
+                         console.log(data)
+                        var selectCalisanRole = $("select.CalisanRole");
+                        selectCalisanRole.empty();
+                        
+                        $.each(data,function(index,value){
+                            console.log(value);
+                            var option = $('<option>');
+                            option.val(value.roleId).text(value.roleName);
+                            selectCalisanRole.append(option);
+                        })
+                        
+                         
+                     }
+                 })
+             })
+             
+              $("button#calisanKaydet").on("click",function(){
+                var formData = {};
+
+                $("form#createCalisan :input").each(function () {
+                    console.log("Inputlar");
+                    var name = $(this).attr("name");
+                    var value = $(this).val();
+                    formData[name] = value;
+                });
+
+                console.log(formData);
+                  $.ajax({
+                      url :"/Calisan/" + calisanTip + "Ekle",
+                      method : "GET",
+                      data : formData,
+                      success : function(data){
+                          console.log("Istek yapıldı dostum")
+                      }
+                  })
+              })
+            
+             
+          })
+      </script>
+    </body>
+</html>

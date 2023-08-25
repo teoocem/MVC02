@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<EntityLayer.Concrete.Departman>
+<html>
+    <head><title>Departman Listesi</title></head>
+
+
+    <body>
+        <table>
+            <thead>
+                <tr>
+                <th>Id</th>
+                <th>Ad</th>
+                <th>Açıklama</th>
+                <th>AktifDurum</th>
+                </tr>
+               
+            </thead>
+            <tbody>
+            @foreach(var d in Model)
+            {
+                <tr>
+                    <td>@d.DepartmanId</td>
+                    <td>@d.DepartmanAd</td>
+                    <td>@d.DepartmanAciklama</td>
+                    <td>@d.DepartmanAktif</td>
+                </tr>
+              
+            }
+        </tbody>
+        </table>
+    
+</body>
+</html>

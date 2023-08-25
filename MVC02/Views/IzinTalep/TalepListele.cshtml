@@ -1,0 +1,64 @@
+﻿@using EntityLayer.Concrete
+@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper * , MVC02
+
+
+@model List<IzinTalep>
+
+
+    <!DOCTYPE html>
+    <html>
+        <head><title>İzin Talep Listesi</title></head>
+        <body>
+            
+            <table>
+               <thead>
+            <tr>
+                <th>İzin Talep ID</th>
+                <th>İzin Başlangıç Tarihi</th>
+                <th>İzin Bitiş Tarihi</th>
+                <th>İzin Aşama</th>
+                <th>İzin Açıklama</th>
+                <th>Çalışan ID</th>
+
+            </tr>
+               </thead>
+               <tbody>
+                 
+            @foreach(var izinTalep in Model)
+            {
+                <izin-talep talep = "@izinTalep"></izin-talep>
+               
+            
+            }
+        </tbody>
+            </table>
+
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script>
+              $(function(){
+                 $("tr.TalepAsamaTr").each(function(){
+                let calisanId = $(this).find("td[data-calisanid]").data("calisanid");
+                let talepAsama = $(this).find("select.TalepAsama").val();
+
+                 $(this).find("select.TalepAsama").on("change",function(){
+                     talepAsama = $(this).val();
+                 })
+                
+                var button = $(this).find("button.talepKayit");
+                button.on("click",function(){
+                    $.ajax({
+                        url : "@Url.Action("TalepYanitla","IzinTalep")",
+                        method : "GET",
+                        data : {talepAsama : talepAsama, calisanId : calisanId},
+                        success : function(data){
+                            console.log("Güncelleme başarılı");
+                        }
+                    })
+                })
+                 })
+                
+              })
+            </script>
+        </body>
+    </html>

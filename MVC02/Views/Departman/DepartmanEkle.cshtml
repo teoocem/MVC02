@@ -1,0 +1,23 @@
+﻿
+@using EntityLayer.Concrete
+@model Departman
+@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+<html>
+    <head><title>Departman Ekle</title></head>
+
+    <body>
+        <section>
+        <form method="post" asp-controller = "Departman" asp-action ="DepartmanEkle">
+            <div class="form form-group">
+                <label>Ad</label><input placeholder="Departman adını giriniz.." asp-for="DepartmanAd" />
+                <label>Açıklama</label><input placeholder="Departman açıklamasını giriniz.." asp-for="DepartmanAciklama" />
+            </div>
+            <br/>
+            <div>
+                <button class="btn btn-primary btn-success">Gönder</button>
+            </div>
+        </form>
+        </section>
+        
+    </body>
+</html>

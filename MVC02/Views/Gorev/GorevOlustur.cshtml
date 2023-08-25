@@ -1,0 +1,143 @@
+﻿@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+@using BusinessLayer.ViewModel
+
+@model GorevDepartmanVM
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Görev Oluşturma Penceresi</title>
+   
+    </head>
+
+    <body>
+        <input type="hidden" id = "seciliCalisanlar" />
+        <form method="POST" asp-action="GorevOlustur" asp-controller="Gorev">
+            <input type="text" placeholder="Görev Başlığını Giriniz." id="GorevBaslik"/>
+            <br />
+        <input type="text" placeholder="Görev Açıklamasını Giriniz" id="GorevAciklama" />
+            <br/>
+           <label>Görev Oluşturma Tarihini Giriniz</label>
+        <input type="date" id="GorevOlusturulmaTarihi" />
+            <br />
+        <label>Görev Tahmini Bitiş Süresi</label>
+        <input type="date" id="TahminiBitisTarihi" />
+            <br />
+           <select  id='select1'  asp-items="ViewBag.Departmanlar">
+               <option value="">Departmanınızı seçin</option>
+           </select>
+            <br/>
+       
+    </form>
+
+        
+       
+       <br />
+       <br />
+        <table id = "dataTable">
+            <thead>
+                <tr>
+                    <th>Calisan Ad </th>
+                    <th>Calisan Soyad</th>
+                    <th>Calisan TC No</th>
+                    <th>Calisan Yaş</th>
+                    <th>Calisan Aktif</th>
+                    <th>Departman ID</th>
+                </tr>
+            </thead>
+            <tbody >
+
+            </tbody>
+        </table>
+        <br />
+        <br />
+
+        <table id ="showTable">Grup için seçilmiş Çalışanlar</table>
+        <thead>
+            <tr>
+            <th>Calisan Ad </th>
+            <th>Calisan Soyad</th>
+            <th>Calisan TC No</th>
+            <th>Calisan Yaş</th>
+            <th>Calisan Aktif</th>
+            <th>Departman ID</th>
+            </tr>
+        </thead>
+        <tbody>
+    <button id="gorevKaydet" type="submit">Kaydet</button>
+   
+   
+     <script src="~/lib/jquery/dist/jquery.js"></script>
+      <script>
+            var selectedCalisanlar = []
+        $("#select1").change(function () {
+            var selectedDepartmanId = $(this).val();
+           
+            $("#dataTable tbody").empty()
+            $.ajax({
+                url : "/Calisan/CalisanlariGetir",
+                data : {departmanId : selectedDepartmanId},
+                success:function(data){
+                    
+                    $.each(data,function(index,value){
+                      console.log(value);
+                        
+                      var row = $('<tr>');
+                      row.append($('<td>').text(value.calisanAd));
+                      row.append($('<td>').text(value.calisanSoyad));
+                      row.append($('<td>').text(value.calisanTcNo));
+                      row.append($('<td>').text(value.calisanYas));
+                      row.append($('<td>').text(value.calisanAktif));
+                      row.append($('<td>').text(value.departmanId));
+                      var ekleButton = $('<button>', { class: 'cEkle', text: 'Ekle' })
+                      row.append(ekleButton);
+                      ekleButton.on("click",function(){
+                          var calisanId = value.calisanId;
+                          console.log(calisanId)
+                          selectedCalisanlar.push(calisanId);
+                          row.hide();
+                      })
+                      $("#dataTable tbody").append(row)
+
+           
+                    });  
+                },
+                error : function(e){
+                    console.log(e)
+                }
+            });
+           
+           
+
+            
+         
+            
+        });
+           
+            $("#gorevKaydet").on("click", function () {
+                var viewModel = {
+                    "CalisanIDs": selectedCalisanlar,
+                    "GorevAciklama": $("#GorevAciklama").val(),
+                    "GorevBaslik": $("#GorevBaslik").val(),
+                    "GorevAktif": true,
+                    "GorevOlusturulmaTarihi": $("#GorevOlusturulmaTarihi").val(),
+                    "TahminiBitisTarihi": $("#TahminiBitisTarihi").val(),
+                }
+                console.log("Görev kaydediliyor.");
+                console.log(viewModel)
+                $.ajax({
+                    url: '@Url.Action("GorevOlustur","Gorev")',
+                    type: 'POST',
+                    data: viewModel,
+                    success: function (data) {
+                        console.log("Eklendi sonunda be!")
+                    }
+                })
+
+            })
+      </script>
+      
+    </body>
+    
+</html>

@@ -1,0 +1,32 @@
+﻿@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using EntityLayer.Concrete
+@model List<Izin>
+
+<!DOCTYPE html>
+<html>
+    <head><title>Izin Listesi</title></head>
+
+    <body>
+        <table>
+            <tr>
+                <th>Izin ID</th>
+                <th>Izin Başlangıç Tarihi</th>
+                <th>Izin Bitiş Tarihi</th>
+                <th>Izin Durum</th>
+                <th>Izin Tipi</th>
+            </tr>
+
+        @foreach(var i in Model)
+        {
+            <tr>
+                <td>@i.IzinId</td>
+                <td>@i.IzinBaslangicTarihi</td>
+                <td>@i.IzinBitisTarihi</td>
+                <td>@i.IzinAktif</td>
+                <td>@i.IzinTipi</td>
+            </tr>
+        }
+        </table>
+    </body>
+</html>

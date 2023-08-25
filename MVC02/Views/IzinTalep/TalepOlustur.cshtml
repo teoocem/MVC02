@@ -1,0 +1,23 @@
+﻿@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+@using EntityLayer.Concrete
+
+@model IzinTalep
+
+<!DOCTYPE html>
+<html>
+    <head><title>Talep Oluşturma Formu</title></head>
+
+    <body>
+        <form asp-action="TalepOlustur" asp-controller="IzinTalep" method="POST">
+            <label>Izin Sebebi</label>
+            <br/>
+            <textarea asp-for="IzinAciklama">İzin alma sebebinizi açıklayın</textarea>
+            <br/>
+            <label>Izin Başlangıç Tarihi</label><input type="date" asp-for="IzinBaslangicTarihi"/>
+        <br />
+             <label>Izin Bitiş Tarihi</label><input type="date" asp-for="IzinBitisTarihi"/>
+             <br/>
+             <button class="btn btn-primary">Gönder</button>
+        </form>
+    </body>
+</html>
