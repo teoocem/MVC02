@@ -1,0 +1,42 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - My ASP.NET App</title>
+    <link rel="stylesheet" href="~/css/index.css" type="text/css" />
+    <style>
+        /* Burada diğer stil kodlarınızı ekleyebilirsiniz */
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/calisan">Çalışan</a>
+        <a href="/departman">Departman</a>
+        <a href="/gorev">Görev</a>
+        <a href="/izin">İzin</a>
+        <a href="/roles">Roller</a>
+        <a href="/logininfo">Login</a>
+
+        
+        
+
+        @if (User.Identity.IsAuthenticated)
+        {
+
+            <a href="/Login/Logout" id="logoutLink" class="navbar-item right">Çıkış Yap</a>
+            
+        }
+        else
+        {
+            <a href="/login" class="navbar-item">Giriş Yap</a>
+        }
+        <p>@User.Identity.Name</p>
+    </div>
+    
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

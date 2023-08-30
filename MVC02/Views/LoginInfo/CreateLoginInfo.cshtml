@@ -1,0 +1,19 @@
+﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@using EntityLayer.Concrete
+@model Login
+<!DOCTYPE html>
+<html>
+    <head>Login Info Create</head>
+    <body>
+        <form method="post">
+            <label>Kullanıcı Adı :</label>
+            <input type="text" placeholder="Kullanıcı Adı" asp-for="Username"/>
+            <br />
+            <label>Şifre</label>
+            <input type="text" placeholder="Şifre" asp-for="Password"/>
+            <label>Çalışan ID</label>
+            <input type="text" placeholder="Çalışan ID" asp-for = "CalisanId" />
+            <button>Kaydet</button>
+        </form>
+    </body>
+</html>

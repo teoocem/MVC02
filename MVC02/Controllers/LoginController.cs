@@ -1,5 +1,6 @@
 ﻿using Azure.Identity;
 using BusinessLayer.Abstract;
+using BusinessLayer.Abstract.CustomClaims;
 using BusinessLayer.ViewModel;
 using DAL.Concrete;
 using Microsoft.AspNetCore.Authentication;
@@ -52,6 +53,11 @@ namespace MVC02.Controllers
             }
             return View();
             
+        }
+        public IActionResult Logout()
+        {
+             HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

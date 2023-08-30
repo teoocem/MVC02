@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MVC02.Controllers
 {
-    [Authorize(Policy = "RequiredSubeMuduru ,RequiredDaireBaskani")]
+    [Authorize(Policy = "RequireDaireBaskani")]
     public class IzinController : Controller
     {
         private readonly IzinManager _izinManager;
@@ -16,7 +16,7 @@ namespace MVC02.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("IzinList");
         }
         public IActionResult IzinList()
         {

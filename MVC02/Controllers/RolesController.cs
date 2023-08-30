@@ -19,11 +19,19 @@ namespace MVC02.Controllers
         }
         public IActionResult RoleEkle()
         {
+          
             return View();
         }
-        public List<Roles> RoleList()
+        [HttpPost]
+        public IActionResult RoleEkle(Roles role)
         {
-            return _manager.ListRoles();
+            _manager.CreateRoles(role);
+            return RedirectToAction("RoleList");
+        }
+        public IActionResult RoleList()
+        {
+            var roleList = _manager.ListRoles(); 
+            return View(roleList);
         }
         public Roles GetByIdRoles(int id)
         {

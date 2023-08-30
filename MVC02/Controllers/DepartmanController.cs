@@ -1,10 +1,12 @@
 ﻿using BusinessLayer.Concrete;
 using DAL.Concrete;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MVC02.Controllers
 {
+    [Authorize(Policy = "RequireDaireBaskani")]
     public class DepartmanController : Controller
     {
         private readonly DepartmanManager _departmanManager;
@@ -14,7 +16,8 @@ namespace MVC02.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var departmanList = _departmanManager.DepartmanList();
+            return View(departmanList);
         }
         [HttpGet]
         public IActionResult DepartmanlarıListele()

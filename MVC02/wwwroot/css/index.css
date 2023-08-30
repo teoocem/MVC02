@@ -1,0 +1,80 @@
+﻿/* Temel stil ayarları */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+/* Navbar stil ayarları */
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+    .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+.navbar-item.right {
+    margin-left: auto; /* Otomatik olarak boş alan ekleyerek öğeleri sağa yasla */
+}
+
+/* Ana içerik bölgesi stil ayarları */
+.content {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form stil ayarları */
+.form-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .form-group button {
+        padding: 10px 15px;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .form-group button:hover {
+            background-color: #555;
+        }

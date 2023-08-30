@@ -1,0 +1,40 @@
+﻿@model List<EntityLayer.Abstract.Calisan>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Çalışan Listesi</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Çalışan ID</th>
+                <th>Çalışan Ad</th>
+                <th>Çalışan Soyad</th>
+                <th>Çalışan TC NO</th>
+                <th>Çalışan Yaş</th>
+                <th>Çalışan Aktif</th>
+                <th>Çalışan Departman ID</th>
+                <th>Çalışan Role ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var calisan in Model)
+            {
+                <tr>
+                    <td>@calisan.CalisanId</td>
+                    <td>@calisan.CalisanAd</td>
+                    <td>@calisan.CalisanSoyad</td>
+                    <td>@calisan.CalisanTcNo</td>
+                    <td>@calisan.CalisanYas</td>
+                    <td>@calisan.CalisanAktif</td>
+                    <td>@calisan.DepartmanId</td>
+                    <td>@calisan.RoleId</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+</body>
+</html>

@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.ViewModel;
 using DAL.Concrete;
+using DAL.Repository;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,10 @@ namespace BusinessLayer.Concrete
 {
     public class GorevManager
     {
-        public readonly GenericOperations<Gorev> _repo;
+        public readonly GorevRepository _repo;
         private readonly CalisanGorevAtamasiManager _calisanGorevManager;
 
-        public GorevManager(GenericOperations<Gorev> repo, CalisanGorevAtamasiManager calisanGorevManager)
+        public GorevManager(GorevRepository repo, CalisanGorevAtamasiManager calisanGorevManager)
         {
             _repo = repo;
             _calisanGorevManager = calisanGorevManager;

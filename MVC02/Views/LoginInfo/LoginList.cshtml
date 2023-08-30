@@ -1,0 +1,35 @@
+﻿@using EntityLayer.Concrete
+@model List<Login>
+
+
+    <!DOCTYPE html>
+    <html>
+        <head></head>
+        <body>
+            <table>
+                <tr>
+                    <th>Login ID</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Çalışan ID</th>
+                </tr>
+        @foreach(var login in Model)
+        {
+            <tr>
+                <td>
+                    @login.LoginId
+                </td>
+                <td>
+                    @login.Username
+                </td>
+                <td>
+                    @login.Password
+                </td>
+                <td>
+                    @login.CalisanId
+                </td>
+            </tr>
+        }
+    </table>
+        </body>
+    </html>

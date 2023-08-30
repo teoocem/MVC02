@@ -8,15 +8,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-
-    public class GorevRepository : GenericOperations<Gorev>
+    public class LoginRepository : GenericOperations<Login>
     {
-        public GorevRepository(Context context) : base(context) 
+        public LoginRepository(Context context) : base(context)
         {
             
         }
-
-
-
     }
 }

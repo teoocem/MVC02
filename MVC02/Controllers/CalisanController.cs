@@ -2,6 +2,7 @@
 using BusinessLayer.ViewModel;
 using EntityLayer.Abstract;
 using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,7 +10,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace MVC02.Controllers
 {
-
+    [Authorize(Policy ="RequireDaireBaskani")]
     public class CalisanController : Controller
     {
         private readonly CalisanManager _calisanManager;
@@ -44,6 +45,11 @@ namespace MVC02.Controllers
             ViewBag.Departmanlar = selectListDefault;
             
             return View();
+        }
+        public IActionResult CalisanList()
+        {
+            var calisanList = _calisanManager.ListCalisan();
+            return View(calisanList);
         }
         
         public IActionResult StandartEkle(StandartCalisan calisan)

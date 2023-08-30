@@ -1,0 +1,24 @@
+﻿@model List<EntityLayer.Concrete.Roles>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rol Listesi</title>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>Role ID</th>
+                <th>Role Ad</th>
+                
+            </tr>
+        @foreach(var role in Model)
+        {
+            <tr>
+                <td>@role.RoleId</td>
+                <td>@role.RoleName</td>
+                
+            </tr>
+        }
+        </table>
+    </body>
+</html>

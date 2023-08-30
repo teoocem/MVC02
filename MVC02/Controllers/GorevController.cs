@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVC02.Controllers
 {
-    [Authorize(Policy = "RequireDaireBaskani , RequireSubeMuduru")]
+
+    [Authorize(Policy = "RequireSubeMuduru")]
     public class GorevController : Controller
     {
         public readonly GorevManager _gorevManager;
@@ -21,7 +22,7 @@ namespace MVC02.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("GorevList");
         }
 
         public IActionResult GorevOlustur()
@@ -39,6 +40,7 @@ namespace MVC02.Controllers
             _gorevManager.CreateGorev(gorev);
             return View();
         }
+       
         public IActionResult GorevList()
         {
             var gorevler = _gorevManager.GorevList();

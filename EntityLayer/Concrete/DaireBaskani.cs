@@ -12,7 +12,6 @@ namespace EntityLayer.Concrete
         public string DaireAdı { get; set; }
         public DateTime AtanmaTarihi { get; set; }
 
-        public int DepartmanId { get; set; }
-        public virtual Departman Departman { get; set; }
+  
     }
 }

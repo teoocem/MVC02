@@ -1,4 +1,5 @@
 ﻿using DAL.Concrete;
+using DAL.Repository;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace BusinessLayer.Concrete
 {
     public class CalisanGorevAtamasiManager 
     {
-        private readonly GenericOperations<CalisanGorevAtamasi> _repo;
+        private readonly CalisanGorevRepository _repo;
 
-        public CalisanGorevAtamasiManager(GenericOperations<CalisanGorevAtamasi> repo)
+        public CalisanGorevAtamasiManager(CalisanGorevRepository repo)
         {
             _repo = repo;
         }

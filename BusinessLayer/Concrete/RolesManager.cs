@@ -24,7 +24,11 @@ namespace BusinessLayer.Concrete
         }
         public void CreateRoles(Roles r)
         {
-            _repo.Insert(r);
+            var role= _repo.GetAll().FirstOrDefault(role => role.RoleName == r.RoleName);
+            if (role == null)
+            {
+                _repo.Insert(r);
+            }
         }
         public List<RolesDepartman> GetRolesDepartmanByDepartmanId(int departmanId)
         {

@@ -1,0 +1,16 @@
+﻿@addTagHelper * , Microsoft.AspNetCore.Mvc.TagHelpers
+@using EntityLayer.Concrete
+@model Roles
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form method="post" asp-action="RoleEkle" asp-controller="Roles">
+            <input type="text" placeholder="Role ismini girin." asp-for = "RoleName"/>
+            <button>Kaydet</button>
+        </form>
+    </body>
+</html>

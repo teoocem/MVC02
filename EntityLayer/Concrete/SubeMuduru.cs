@@ -12,7 +12,6 @@ namespace EntityLayer.Concrete
         public string SubeAdi { get; set; }
         public DateTime AtanmaTarihi { get; set; }
 
-        public int DepartmanId { get; set; }
-        public Departman Departman { get; set; }
+     
     }
 }

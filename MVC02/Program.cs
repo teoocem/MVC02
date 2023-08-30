@@ -1,4 +1,6 @@
 using BusinessLayer.Abstract;
+using BusinessLayer.Abstract.Authorizations;
+using BusinessLayer.Abstract.Requirements;
 using BusinessLayer.Concrete;
 using DAL.Concrete;
 using DAL.Repository;
@@ -28,25 +30,18 @@ builder.Services.AddAuthentication("cookie").AddCookie("cookie",options =>
 
 });
 
-builder.Services.AddAuthorization(configure =>
+builder.Services.AddAuthorization(config =>
 {
-    configure.AddPolicy("RequireStandartCalisan", policy =>
-    {
-        policy.AddRequirements(new StandartCalisanRequirement("Standart"));
-    });
-    configure.AddPolicy("RequireSubeMuduru", policy =>
-    {
-        policy.AddRequirements(new StandartCalisanRequirement("SubeMuduru"));
-    });
-    configure.AddPolicy("RequireDaireBaskani", policy =>
-    {
-        policy.AddRequirements(new StandartCalisanRequirement("DaireBaskani"));
-    });
+    config.AddPolicy("RequireStandartCalisan", policy => policy.AddRequirements(new CalisanRequirement("Standart")));
+    config.AddPolicy("RequireSubeMuduru", policy => policy.AddRequirements(new CalisanRequirement("SubeMuduru")));
+    config.AddPolicy("RequireDaireBaskani", policy => policy.AddRequirements(new CalisanRequirement("DaireBaskani")));
+    config.AddPolicy("RequireAdmin", policy => policy.AddRequirements(new CalisanRequirement("Admin")));
+
 });
 
 
 
-builder.Services.AddSingleton<IAuthorizationHandler, StandartCalisanAuthorization>();
+builder.Services.AddSingleton<IAuthorizationHandler, CalisanAuthorization>();
 
 
 builder.Services.AddScoped<Context>();
@@ -82,12 +77,53 @@ builder.Services.AddScoped<RolesDepartmanRepository>(provider =>
     var context = provider.GetRequiredService<Context>();
     return new RolesDepartmanRepository(context);
 });
+builder.Services.AddScoped<LoginRepository>(provider =>
+{
+    var context = provider.GetRequiredService<Context>();
+    return new LoginRepository(context);
+});
+builder.Services.AddScoped<LoginManager>(provider =>
+{
+    var repo = provider.GetRequiredService<LoginRepository>();
+    return new LoginManager(repo);
+});
 
 builder.Services.AddScoped<RolesManager>(provider =>
 {
     var roleRepo = provider.GetRequiredService<RolesRepository>();
     var roleDepartmanRepo = provider.GetRequiredService<RolesDepartmanRepository>();
     return new RolesManager(roleRepo,roleDepartmanRepo);
+});
+builder.Services.AddScoped<IzinRepository>(provider =>
+{
+    var context = provider.GetRequiredService<Context>();
+    return new IzinRepository(context);
+});
+builder.Services.AddScoped<IzinManager>(provider =>
+{
+    var izinRepo = provider.GetRequiredService<IzinRepository>();
+    return new IzinManager(izinRepo);
+});
+builder.Services.AddScoped<CalisanGorevRepository>(provider =>
+{
+    var context = provider.GetRequiredService<Context>();
+    return new CalisanGorevRepository(context);
+});
+builder.Services.AddScoped<CalisanGorevAtamasiManager>(provider =>
+{
+    var calisanGorevRepo = provider.GetRequiredService<CalisanGorevRepository>();
+    return new CalisanGorevAtamasiManager(calisanGorevRepo);
+});
+builder.Services.AddScoped<GorevRepository>(provider =>
+{
+    var context = provider.GetRequiredService<Context>();
+    return new GorevRepository(context);
+});
+builder.Services.AddScoped<GorevManager>(provider =>
+{
+    var gorevRepo = provider.GetRequiredService<GorevRepository>();
+    var gorevDepartman = provider.GetRequiredService<CalisanGorevAtamasiManager>();
+    return new GorevManager(gorevRepo, gorevDepartman);
 });
 var app = builder.Build();
 
